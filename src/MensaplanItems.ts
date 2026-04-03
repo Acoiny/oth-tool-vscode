@@ -18,6 +18,21 @@ export class Meal {
 		const image_format = `<img src="${this.image_url}" width="200"/>`;
 		return `|${image_format}|${this.name}|${this.price_students}|${this.price_workers}|${this.price_guest}|`;
 	}
+
+	to_html() : string {
+		const image_format = `<img src="${this.image_url}" width="200"/>`;
+		return `<div class="meal">
+			<div class="meal-image">${image_format}</div>
+			<div class="meal-info">
+				<div class="meal-name">${this.name}</div>
+				<div class="meal-prices">
+					<div class="price-students">Studenten: ${this.price_students}€</div>
+					<div class="price-workers">Mitarbeiter: ${this.price_workers}€</div>
+					<div class="price-guest">Gäste: ${this.price_guest}€</div>
+				</div>
+			</div>
+		</div>`;
+	}
 }
 
 export class Weekday {
@@ -112,6 +127,46 @@ export class Weekday {
 			res += this.get_markdown_table_header();
 			for (const ns of this.abendgerichte) {
 				res += `${ns.to_markdown()}\n`;
+			}
+		}
+
+		return res;
+	}
+
+	to_html_str(): string {
+		let res = `<h2>${this.date.toLocaleDateString("de-DE", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</h2>`;
+
+		if (this.suppen.length > 0) {
+			res += "<h3>Suppen</h3>";
+			for (const su of this.suppen) {
+				res += su.to_html();
+			}
+		}
+
+		if (this.beilagen.length > 0) {
+			res += "<h3>Beilagen</h3>";
+			for (const vs of this.beilagen) {
+				res += vs.to_html();
+			}
+		}
+		if (this.hauptspeisen.length > 0) {
+			res += "<h3>Hauptspeisen</h3>";
+			for (const hs of this.hauptspeisen) {
+				res += hs.to_html();
+			}
+		}
+
+		if (this.nachspeisen.length > 0) {
+			res += "<h3>Nachspeisen</h3>";
+			for (const ns of this.nachspeisen) {
+				res += ns.to_html();
+			}
+		}
+
+		if (this.abendgerichte.length > 0) {
+			res += "<h3>Abengerichte</h3>";
+			for (const ns of this.abendgerichte) {
+				res += ns.to_html();
 			}
 		}
 

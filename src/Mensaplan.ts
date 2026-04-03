@@ -158,4 +158,34 @@ export class Mensaplan {
 
     return res;
   }
+
+  to_html_str(): string {
+    let res = "";
+    const weekdays = [
+      "Montag",
+      "Dienstag",
+      "Mittwoch",
+      "Donnerstag",
+      "Freitag",
+      "Samstag",
+      "Sonntag",
+    ];
+
+    for (const [d, day] of this.days) {
+      try {
+        const weekdayIndex = d.getDay() === 0 ? 6 : d.getDay() - 1; // Convert Sunday (0) to 6, and shift Monday-Saturday
+        const dateStr = d.toLocaleDateString("de-DE", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        });
+        res += `<h1>${weekdays[weekdayIndex]} (${dateStr})</h1>\n`;
+        res += day.to_html_str() + "\n";
+      } catch (e) {
+        res += `<div class="warning">No mensaplan!</div>`;
+      }
+    }
+
+    return res;
+  }
 }
