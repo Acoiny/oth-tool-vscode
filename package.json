@@ -57,6 +57,7 @@
     "typescript-eslint": "^8.56.1"
   },
   "dependencies": {
+    "@vscode/vsce": "^3.7.1",
     "cheerio": "^1.2.0"
   }
 }
