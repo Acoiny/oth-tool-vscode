@@ -1,0 +1,221 @@
+:root {
+    color-scheme: dark;
+    --bg: #0e1418;
+    --panel: #141d24;
+    --text: #e6eef2;
+    --muted: #9ab0bc;
+    --line: #263540;
+    --accent: #5ac07a;
+    --accent-soft: #1b2c22;
+    --chip: #1d2933;
+    --chip-hover: #273744;
+}
+
+body {
+    margin: 0;
+    padding: 16px;
+    background: radial-gradient(circle at top right, #1a2330, var(--bg) 45%);
+    color: var(--text);
+    font: 14px/1.45 "Segoe UI", "Noto Sans", sans-serif;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+    align-items: center;
+}
+
+.segment {
+    display: inline-flex;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--chip);
+}
+
+.seg-btn {
+    border: 0;
+    margin: 0;
+    padding: 8px 12px;
+    color: var(--text);
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.seg-btn span {
+    color: var(--muted);
+    font-size: 0.85em;
+}
+
+.seg-btn+.seg-btn {
+    border-left: 1px solid var(--line);
+}
+
+.seg-btn:hover {
+    background: var(--chip-hover);
+}
+
+.seg-btn.active {
+    background: var(--accent-soft);
+    color: #bceecb;
+    font-weight: 600;
+}
+
+.toolbar-actions {
+    display: inline-flex;
+    gap: 8px;
+}
+
+.action-btn {
+    border: 1px solid var(--line);
+    background: var(--chip);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background: var(--chip-hover);
+}
+
+.action-btn.active {
+    border-color: #2d6940;
+    color: #bceecb;
+    background: var(--accent-soft);
+}
+
+h1,
+h2,
+h3 {
+    margin: 0 0 10px;
+    letter-spacing: 0.2px;
+}
+
+h1 {
+    font-size: 1.2rem;
+    color: var(--accent);
+    margin-top: 18px;
+}
+
+h2 {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-top: 10px;
+}
+
+h3 {
+    font-size: 0.95rem;
+    margin-top: 14px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+    margin-bottom: 14px;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--accent-soft);
+    color: #bceecb;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+}
+
+th,
+td {
+    padding: 10px 12px;
+    vertical-align: middle;
+}
+
+tbody tr:nth-child(even) {
+    background: #18242d;
+}
+
+tbody tr:hover {
+    background: #22313b;
+}
+
+td+td,
+th+th {
+    border-left: 1px solid #20303b;
+}
+
+td img {
+    width: 88px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #2b3f4c;
+    background: #0f161c;
+}
+
+td:nth-child(3),
+td:nth-child(4),
+td:nth-child(5) {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.warning {
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #3a1f18;
+    border: 1px solid #7c3a29;
+    color: #ffd8cd;
+    font-weight: 600;
+}
+
+@media (max-width: 760px) {
+    body {
+        padding: 10px;
+    }
+
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .segment,
+    .toolbar-actions {
+        width: 100%;
+    }
+
+    .seg-btn,
+    .action-btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    th,
+    td {
+        min-width: 120px;
+    }
+
+    td:nth-child(2),
+    th:nth-child(2) {
+        min-width: 220px;
+    }
+}

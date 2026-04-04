@@ -97,7 +97,9 @@ export class Mensaplan {
     headers.each((_, header) => {
       const $header = $(header);
       const cl = $header.attr("class");
-      if (!cl) return;
+      if (!cl) {
+        return;
+      }
 
       if (cl.includes("gruppenkopf")) {
         const raw = $header.find("td").text();

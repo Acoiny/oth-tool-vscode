@@ -20,18 +20,14 @@ export class Meal {
 	}
 
 	to_html() : string {
-		const image_format = `<img src="${this.image_url}" width="200"/>`;
-		return `<div class="meal">
-			<div class="meal-image">${image_format}</div>
-			<div class="meal-info">
-				<div class="meal-name">${this.name}</div>
-				<div class="meal-prices">
-					<div class="price-students">Studenten: ${this.price_students}€</div>
-					<div class="price-workers">Mitarbeiter: ${this.price_workers}€</div>
-					<div class="price-guest">Gäste: ${this.price_guest}€</div>
-				</div>
-			</div>
-		</div>`;
+		const image_format = `<img src="${this.image_url}" alt="${this.name}"/>`;
+		return `<tr>
+			<td>${image_format}</td>
+			<td>${this.name}</td>
+			<td>${this.price_students}</td>
+			<td>${this.price_workers}</td>
+			<td>${this.price_guest}</td>
+		</tr>`;
 	}
 }
 
@@ -88,6 +84,29 @@ export class Weekday {
 		return res;
 	}
 
+	get_html_table_header(): string {
+		return `<table>
+		<thead>
+			<tr>
+				<th>Bilder</th>
+				<th>Name</th>
+				<th>Studentenpreis</th>
+				<th>Mitarbeiterpreis</th>
+				<th>Gästepreis</th>
+			</tr>
+		</thead>
+		<tbody>`;
+	}
+
+	meals_to_html_table(meals: Meal[]): string {
+		let res = this.get_html_table_header();
+		for (const meal of meals) {
+			res += meal.to_html();
+		}
+		res += "</tbody></table>";
+		return res;
+	}
+
 	to_markdown_str(): string {
 		let res = "";
 
@@ -138,36 +157,26 @@ export class Weekday {
 
 		if (this.suppen.length > 0) {
 			res += "<h3>Suppen</h3>";
-			for (const su of this.suppen) {
-				res += su.to_html();
-			}
+			res += this.meals_to_html_table(this.suppen);
 		}
 
 		if (this.beilagen.length > 0) {
 			res += "<h3>Beilagen</h3>";
-			for (const vs of this.beilagen) {
-				res += vs.to_html();
-			}
+			res += this.meals_to_html_table(this.beilagen);
 		}
 		if (this.hauptspeisen.length > 0) {
 			res += "<h3>Hauptspeisen</h3>";
-			for (const hs of this.hauptspeisen) {
-				res += hs.to_html();
-			}
+			res += this.meals_to_html_table(this.hauptspeisen);
 		}
 
 		if (this.nachspeisen.length > 0) {
 			res += "<h3>Nachspeisen</h3>";
-			for (const ns of this.nachspeisen) {
-				res += ns.to_html();
-			}
+			res += this.meals_to_html_table(this.nachspeisen);
 		}
 
 		if (this.abendgerichte.length > 0) {
 			res += "<h3>Abengerichte</h3>";
-			for (const ns of this.abendgerichte) {
-				res += ns.to_html();
-			}
+			res += this.meals_to_html_table(this.abendgerichte);
 		}
 
 		return res;
